@@ -21,8 +21,8 @@ urlpatterns = [
     #path('datetime/', views.SimpleView.as_view()),
     #path('blog_new/', views.SimpleView.as_view()),
     #path('login/', views.SimpleView.as_view()),
-    path('notes/', views.SimpleView.as_view()),
-    #path('notes/<int:pk>', views.NoteDetailAPIView.as_view()), # int регулярка
-    #path('notes/public/', views.PublicNoteListAPIView.as_view())
+    path('notes/', views.NoteListCreateAPIView.as_view()),
+    path('notes/<int:pk>', views.NoteDetailAPIView.as_view()), # int регулярка
+    path('notes/public/', views.PublicNoteListAPIView.as_view())
 
 ]

@@ -1,7 +1,4 @@
-import unittest
-
 from django.test import TestCase
-from rest_framework import status
 from todo_api.models import Note
 from django.contrib.auth.models import User
 
