@@ -5,7 +5,7 @@ from .models import Note
 @admin.register(Note)                           # добавляем модель Note в админку
 class ModelAdmin(admin.ModelAdmin):
     # отображение полей в списке в указанном порядке
-    list_display = ('nt_title', 'nt_importance', 'nt_public', 'nt_status', 'nt_endtime', 'id')
+    list_display = ('nt_title', 'nt_author_id', 'nt_importance', 'nt_public', 'nt_status', 'nt_endtime', 'id')
 
     # отвечает за отображение полей. Группировака поля в режиме редактирования
     fields = (('nt_title', 'nt_public', 'nt_importance'), 'nt_status', 'nt_description', 'nt_createtime', 'nt_updatetime', 'nt_endtime', 'nt_author')

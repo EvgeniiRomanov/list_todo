@@ -5,7 +5,7 @@ from typing import Optional
 def note_filter_by_author_id(queryset: QuerySet, author_id: Optional[int]):
     """
     Фильтрация заметок по идентификатору автора
-    :param queryset:
+    :param queryset:запрос
     :param author_id: идентификатор автора
     :return: Заметки с указанным идентификатором автора
     """
@@ -18,7 +18,7 @@ def note_filter_by_author_id(queryset: QuerySet, author_id: Optional[int]):
 def note_filter_by_importance(queryset: QuerySet, importance_id: Optional[bool]):
     """
     Фильтрация заметок по признаку важности
-    :param queryset:
+    :param queryset: запрос
     :param importance_id: идентификатор важности (True или False)
     :return: Заметки отфильтрованные по важности
     """
@@ -31,7 +31,7 @@ def note_filter_by_importance(queryset: QuerySet, importance_id: Optional[bool])
 def note_filter_by_status(queryset: QuerySet, status_id: Optional[int]):
     """
     Фильтрация заметок по статусу
-    :param queryset:
+    :param queryset: запрос
     :param status_id: статус 2 - Активно, 1 - Отложено, 0 - Выполнено.
     :return: Заметки с указанным статусом
     """

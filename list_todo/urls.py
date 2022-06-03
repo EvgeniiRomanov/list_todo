@@ -15,10 +15,35 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+# добавил на 6 лекции
+from rest_framework import permissions
+from rest_framework.authtoken import views
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Snippets API",
+      default_version='v1',
+      description="Test description",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="contact@snippets.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),  # доступ к API имеют все, без авторизации
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('todo_api.urls')),
     path('', include('login.urls')),
+
+    path('api-token-auth/', views.obtain_auth_token),
+
+    path('docs/', schema_view.with_ui('swagger')),
     #path('__debug__/', include('debug_toolbar.urls')),
 ]
+
+

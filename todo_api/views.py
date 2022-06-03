@@ -7,6 +7,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 
 from . models import Note
 from . import serializers, filters
@@ -39,6 +40,8 @@ class NoteListCreateAPIView(APIView):
 
 class NoteDetailAPIView(APIView):
     """ Представления для чтения отдельных заметок """
+    #permission_classes = (IsAuthenticated, )    # теперь сюда только авторизированные
+
     # @staticmethod
     # def valid_serializer(serializer):
     #     if not serializer.is_valid():
@@ -101,7 +104,8 @@ class PublicNoteListAPIView(ListAPIView): # ListAPIView возвращает т�
     # фильтр только публичные
     def get_queryset(self):
         queryset = super().get_queryset()            # получаем полную копию
-        return queryset.filter(nt_public=True)       # (author=self.request.user, public = True)
+        return queryset.filter(nt_public=True)       # (nt_author=self.request.user, public = True)
+                                                     # (nt_author_id = 1)
                                                      # order_by (выбор столбца упорядочивания)
 
     # фильтрация по автору, фильтр по важность, фильтр по публичности

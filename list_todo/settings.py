@@ -50,10 +50,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    # 'blog_new',
-    # 'blog_new_api',
+
     'todo_api',
     'login',
+    'django_filters',
+    'drf_yasg',
+    'rest_framework.authtoken',
     #'debug_toolbar',
 ]
 
@@ -183,3 +185,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #
 #         logger = logging.getLogger(__name__)
 #         logger.warning(f"Ошибка импорта. {e}")
+
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#            'rest_framework.authentication.TokenAuthentication',  # подключение не по сессии через логин и пас, а токену
+#     )
+# }
