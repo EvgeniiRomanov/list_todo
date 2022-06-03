@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     # 'blog_new_api',
     'todo_api',
     'login',
+    #'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,46 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# логирование в консоль
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'filters': {
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         }
+#      },
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'filters': ['require_debug_true'],
+#             'class': 'logging.StreamHandler',
+#         }
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#         }
+#     }
+# }
+
+
+# НЕ работает, велетают ошибки не разбирался Лекция 5 2 часть
+# TOOLBAR_DEBUG = True
+#
+# if TOOLBAR_DEBUG:
+#     try:
+#         from list_todo import local_settings
+#
+#         INSTALLED_APPS += local_settings.INSTALLED_APPS
+#         MIDDLEWARE = local_settings.MIDDLEWARE + MIDDLEWARE
+#
+#         INTERNAL_IPS = local_settings.INTERNAL_IPS
+#     except ImportError as e:
+#         import logging
+#
+#         logger = logging.getLogger(__name__)
+#         logger.warning(f"Ошибка импорта. {e}")

@@ -9,7 +9,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 
 from . models import Note
-from . import serializers
+from . import serializers, filters
 
 
 class NoteListCreateAPIView(APIView):
@@ -98,17 +98,37 @@ class PublicNoteListAPIView(ListAPIView): # ListAPIView возвращает т�
     queryset = Note.objects.all()   #(public=True) - отображать только пубуличные, но так не хорошо, лучше фильтрами
     serializer_class = serializers.NoteSerializer
 
+    # фильтр только публичные
     def get_queryset(self):
         queryset = super().get_queryset()            # получаем полную копию
-        return queryset.filter(nt_author=1, nt_public=False).order_by("id") # фильтруем (author=self.request.user, public = True)
-                                                           # order_by (выбор столбца упорядочивания)
-    # def filter_queryset(self, queryset):
-    #    # queryset = super().filter_queryset(queryset)   #
-    #     #self.request.query_params.get("author_id", None)
-    #     return filters.note_filter_by_author_id(
-    #         queryset,
-    #         author_id=self.request.query_params.get("author_id", None)
-    #     )
+        return queryset.filter(nt_public=True)       # (author=self.request.user, public = True)
+                                                     # order_by (выбор столбца упорядочивания)
+
+    # фильтрация по автору, фильтр по важность, фильтр по публичности
+    def filter_queryset(self, queryset):
+        queryset = filters.note_filter_by_author_id(
+                    queryset,
+                    author_id=self.request.query_params.get("nt_author_id", None),
+                    )
+
+        queryset = filters.note_filter_by_importance(queryset,
+                    importance_id=self.request.query_params.get("nt_importance", None),
+                    )
+
+        return filters.note_filter_by_status(queryset,
+                    status_id=self.request.query_params.get("nt_status", None),
+                    )
+
+
+   # # фильтрация
+   #  def filter_queryset(self, queryset):
+   #     # queryset = super().filter_queryset(queryset)   #
+   #      #self.request.query_params.get("author_id", None)
+   #      return filters.note_filter_by_author_id(
+   #          queryset,
+   #          author_id=self.request.query_params.get("nt_author_id", None)
+   #      )
+
 
 # # сериализация функциями Read all list
 # class NoteListCreateAPIView(APIView):

@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('todo_api.urls')),
     path('', include('login.urls')),
+    #path('__debug__/', include('debug_toolbar.urls')),
 ]
