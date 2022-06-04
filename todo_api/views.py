@@ -67,7 +67,7 @@ class NoteDetailAPIView(APIView):
                             status=status.HTTP_403_FORBIDDEN)
 
         serializer.save(nt_author=request.user)
-        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def patch(self, request, pk):
         """ Изменение полей заметки автором """
@@ -82,7 +82,7 @@ class NoteDetailAPIView(APIView):
                             status=status.HTTP_403_FORBIDDEN)
 
         serializer.save(nt_author=request.user)
-        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk):
         """ Удаление заметки автором """
