@@ -28,14 +28,26 @@ def note_filter_by_importance(queryset: QuerySet, importance_id: Optional[bool])
         return queryset
 
 
-def note_filter_by_status(queryset: QuerySet, status_id: Optional[int]):
+# def note_filter_by_status(queryset: QuerySet, status_id: Optional[int]):
+#     """
+#     Фильтрация заметок по статусу по отельным записям
+#     :param queryset: запрос
+#     :param status_id: статус 2 - Активно, 1 - Отложено, 0 - Выполнено.
+#     :return: Заметки с указанным статусом
+#     """
+#     if status_id:
+#         return queryset.filter(nt_status=status_id)
+#     else:
+#         return queryset
+
+def note_filter_by_status_list(queryset: QuerySet, status_id: list):
     """
-    Фильтрация заметок по статусу
+    Фильтрация заметок по статусу списком
     :param queryset: запрос
-    :param status_id: статус 2 - Активно, 1 - Отложено, 0 - Выполнено.
+    :param status_id: статус 2 - Активно, 1 - Отложено, 0 - Выполнено. - (?nt_status=0&nt_status=1&nt_status=2)
     :return: Заметки с указанным статусом
     """
     if status_id:
-        return queryset.filter(nt_status=status_id)
+        return queryset.filter(nt_status__in=status_id)
     else:
         return queryset

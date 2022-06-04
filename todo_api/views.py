@@ -120,8 +120,12 @@ class PublicNoteListAPIView(ListAPIView): # ListAPIView возвращает т�
                     importance_id=self.request.query_params.get("nt_importance", None),
                     )
 
-        return filters.note_filter_by_status(queryset,
-                    status_id=self.request.query_params.get("nt_status", None),
+        # return filters.note_filter_by_status(queryset,
+        #             status_id=self.request.query_params.get("nt_status"),         # по отельным статусас
+        #             )
+
+        return filters.note_filter_by_status_list(queryset,
+                    status_id=self.request.query_params.getlist("nt_status"),      # по нескольким статусам
                     )
 
 
