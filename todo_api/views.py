@@ -93,8 +93,7 @@ class NoteDetailAPIView(APIView):
                             status=status.HTTP_403_FORBIDDEN)
         note.delete()
 
-        return Response(f"Заметка №{pk} успешно удалена.", status=status.HTTP_204_NO_CONTENT)
-
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class PublicNoteListAPIView(ListAPIView): # ListAPIView возвращает только список объектов с которыми работали, post и put тут нет
     """/notes/public/"""
@@ -104,13 +103,14 @@ class PublicNoteListAPIView(ListAPIView): # ListAPIView возвращает т�
 
     # фильтр только публичные
     def get_queryset(self):
-        queryset = super().get_queryset()            # получаем полную копию
+        queryset = super().get_queryset()                                   # получаем полную копию
         return queryset.filter(nt_public=True).order_by('nt_endtime')       # (nt_author=self.request.user, public = True)
-        # return self.order_by_queryset(queryset)                                             # (nt_author_id = 1)
-                                                     # order_by (выбор столбца упорядочивания)
+        # return self.order_by_queryset(queryset)                           # (nt_author_id = 1)
+                                                                            # order_by (выбор столбца упорядочивания)
 
-    # фильтрация по автору, фильтр по важность, фильтр по публичности
+
     def filter_queryset(self, queryset):
+        """ Фильтр по автору, по важностиб статусу """
         queryset = filters.note_filter_by_author_id(
                     queryset,
                     author_id=self.request.query_params.get("nt_author_id", None),
