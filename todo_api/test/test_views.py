@@ -64,14 +64,13 @@ class TestNoteDetailAPIView(APITestCase):
             "nt_author": "test1@test.ru",
             "nt_title": 'Test 2',
             "nt_description": '',
-            "nt_public": False,
             "nt_importance": False,
+            "nt_public": False,
+            "nt_status": 2,
             "nt_createtime": resp.data.get('nt_createtime'),
             "nt_updatetime": resp.data.get('nt_updatetime'),
             "nt_endtime": resp.data.get('nt_endtime'),
         }
-
-
 
         self.assertDictEqual(expected_data, resp.data)
 
@@ -97,21 +96,30 @@ class TestNoteDetailAPIView(APITestCase):
         self.assertEqual(status.HTTP_200_OK, resp.status_code)
 
         # проверяем извлеченную запись
+
         expected_data = {
             "id": 3,
+            "nt_author": "test1@test.ru",
             "nt_title": 'Заголовок на изменение',
             "nt_description": 'Тут есть данные для изменения',
-            "nt_public": False
+            "nt_importance": False,
+            "nt_public": False,
+            "nt_status": 2,
+            "nt_createtime": resp.data.get('nt_createtime'),
+            "nt_updatetime": resp.data.get('nt_updatetime'),
+            "nt_endtime": resp.data.get('nt_endtime'),
         }
 
         self.assertDictEqual(expected_data, resp.data)
 
-        # формируем обновление
         expected_update_data = {
             "id": 3,
+            "nt_author": "test1@test.ru",
             "nt_title": 'Обновленный заголовок',
             "nt_description": 'Обновленное сообщение',
-            "nt_public": False
+            "nt_importance": False,
+            "nt_public": False,
+            "nt_status": 2,
         }
 
         # проверка успешности создания обновления
