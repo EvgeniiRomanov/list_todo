@@ -3,7 +3,7 @@ from todo_api.models import Note
 from django.contrib.auth.models import User
 
 
-class ModelTestCase(TestCase):
+class ModelTODOTestCase(TestCase):
     """ Тест на создание заметки в БД"""
     @classmethod
     def setUpTestData(cls):                              # создаем пользователя

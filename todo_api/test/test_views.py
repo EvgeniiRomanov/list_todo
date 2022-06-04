@@ -46,14 +46,14 @@ class TestNoteDetailAPIView(APITestCase):
 
     @classmethod
     def setUpTestData(cls):  # создаем тест данные один раз на все тесты внутри данного класса
-        User.objects.create(username='test1@test.ru')                        # создаем пользователя
+        User.objects.create(username='test1@test.ru')              # создаем пользователя
         Note.objects.create(nt_title='Test 1', nt_author_id=1)     # создаем 1 запись
         Note.objects.create(nt_title='Test 2', nt_author_id=1)     # создаем 2 запись
 
     # обновление существующей записи
     def test_retrieve_object(self):
         note_pk = 2                     # id записи
-        url = f"/notes/{note_pk}"       #
+        url = f"/notes/{note_pk}"
 
         resp = self.client.get(url)    # запрос
         self.assertEqual(status.HTTP_200_OK, resp.status_code)
@@ -64,9 +64,14 @@ class TestNoteDetailAPIView(APITestCase):
             "nt_author": "test1@test.ru",
             "nt_title": 'Test 2',
             "nt_description": '',
-            #"public": False
-            #"create_at": ''   # не работает если раскоментить с ней из-за serializer.py
+            "nt_public": False,
+            "nt_importance": False,
+            "nt_createtime": resp.data.get('nt_createtime'),
+            "nt_updatetime": resp.data.get('nt_updatetime'),
+            "nt_endtime": resp.data.get('nt_endtime'),
         }
+
+
 
         self.assertDictEqual(expected_data, resp.data)
 

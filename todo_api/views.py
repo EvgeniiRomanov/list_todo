@@ -101,11 +101,12 @@ class PublicNoteListAPIView(ListAPIView): # ListAPIView возвращает т�
     queryset = Note.objects.all()   #(public=True) - отображать только пубуличные, но так не хорошо, лучше фильтрами
     serializer_class = serializers.NoteSerializer
 
+
     # фильтр только публичные
     def get_queryset(self):
         queryset = super().get_queryset()            # получаем полную копию
-        return queryset.filter(nt_public=True)       # (nt_author=self.request.user, public = True)
-                                                     # (nt_author_id = 1)
+        return queryset.filter(nt_public=True).order_by('nt_endtime')       # (nt_author=self.request.user, public = True)
+        # return self.order_by_queryset(queryset)                                             # (nt_author_id = 1)
                                                      # order_by (выбор столбца упорядочивания)
 
     # фильтрация по автору, фильтр по важность, фильтр по публичности
@@ -122,6 +123,10 @@ class PublicNoteListAPIView(ListAPIView): # ListAPIView возвращает т�
         return filters.note_filter_by_status(queryset,
                     status_id=self.request.query_params.get("nt_status", None),
                     )
+
+
+
+
 
 
    # # фильтрация
